@@ -3,8 +3,13 @@ name: Node CI
 on: [push]
 
 jobs:
-  deploy-back:
+  deploy-install-back:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./back
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
     steps:
       - uses: actions/checkout@v3
       - name: Deploy to Server
@@ -16,9 +21,17 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: "/var/www/td"
           SCRIPT_AFTER:
-      - run: npm ci && composer update && composer i
-        working-directory: ./back
-
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+        working-directory: ${{ env.working-directory }}
+      - run: composer update
+        working-directory: ${{ env.working-directory }}
+      - run: composer i
+        working-directory: ${{ env.working-directory }}
 
   build-deploy-front:
     runs-on: ubuntu-latest
