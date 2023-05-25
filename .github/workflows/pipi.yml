@@ -33,7 +33,7 @@ jobs:
         working-directory: ${{ env.working-directory }}
       - run: npm run build --if-present
         working-directory: ${{ env.working-directory }}
-      - run: ls -le
+      - run: ls -la
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@main
         env:
