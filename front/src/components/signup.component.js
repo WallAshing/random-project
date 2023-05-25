@@ -69,7 +69,7 @@ export default class SignUp extends Component {
             password: this.state.password,
             password_confirmation: this.state.password_confirmation,
         };
-        axios.post('http://127.0.0.1:8000/api/auth/register', userObject)
+        axios.post('https://api.alexandre-vauthier/api/auth/register', userObject)
             .then((res) => {
                console.log(res,"aaaaaaaaaaa");
                 if(res.data.message === "User successfully registered"){
