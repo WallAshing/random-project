@@ -17,7 +17,7 @@ jobs:
           TARGET: "/var/www/td"
           SCRIPT_AFTER: npm ci && pm2 restart nodejs
 
-  build&deploy-front:
+  build-deploy-front:
     runs-on: ubuntu-latest
     env:
       working-directory: ./front
